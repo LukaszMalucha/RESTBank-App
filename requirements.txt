@@ -1,5 +1,6 @@
 dj_database_url == 0.5.0
 Django==2.1.5
+django-forms-bootstrap==3.1.0
 DjangoRestFramework == 3.9.0
 psycopg2 == 2.7.5
 Pillow==5.3.0

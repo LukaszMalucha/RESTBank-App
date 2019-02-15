@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% load staticfiles %} {% load bootstrap_tags %}
+{% block content %}
+    <h1>My video</h1>
+    <ul>
+    {% for d in data %}
+        <li>Title: {{ d.name }}</li>
+        <li>SEO Title:{{ d.ticker }}</li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
