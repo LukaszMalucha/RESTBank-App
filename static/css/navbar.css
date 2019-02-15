@@ -1,0 +1,277 @@
+/*------------------------------------------------------------------------------
+    TOP NAVBAR
+------------------------------------------------------------------------------*/
+
+.top-navbar .navbar-brand strong {
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    color: #222;
+
+}
+
+.top-navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 300;
+    border: none;
+    padding-right: 20px;
+    padding-left: 0.5%;
+    height: 60px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.top-navbar .navbar-brand {
+    margin:0px;
+    width: 500px;
+    height: auto;
+    text-align: left;
+    padding: 5px;
+    font-weight: 700;
+    color: #1a2026;
+    background: transparent;
+    margin-top: -5px;
+}
+
+
+.navbar-brand  .material-icons {
+    float: left;
+    font-size: 28px;
+    margin-right: 5px;
+    line-height: inherit;
+    height: auto;
+
+}
+
+.nav > li > a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+}
+
+.nav i, .nav i.material-icons {
+    height:20px;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+
+
+.top-navbar .navbar-right {
+    width: auto;
+    height: 40px;
+    margin: 0px;
+    line-height: 1;
+    padding: 5px;
+    color: #1a2026;
+}
+
+.top-navbar .navbar-right>a {
+    padding: 0px;
+    font-size: 15px;
+}
+
+.top-navbar .navbar-right>a>i {
+    margin-right: 5px;
+    font-size: 16px;
+    height: 20px;
+}
+
+nav ul b {
+    font-weight: bold;
+}
+
+.dropdown-content {
+    width: 150px !important;
+    right: -50px !important;
+    top: 60px !important;
+
+}
+
+.dropdown-content li>a {
+    font-size: 14px;
+    text-decoration: none;
+}
+.dropdown-content li>a>i {
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+
+.dropdown-content li>fa {
+    font-size: 16px;
+
+}
+
+
+/* Hovers and Focuses --------------------------------------------------------*/
+
+.navbar-right>a:hover,
+.navbar-right>a:focus {
+    text-decoration: none;
+    outline: 0px;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    background-color: transparent;
+    outline: 0px;
+}
+
+
+nav ul a:hover {
+    background-color: #fff;
+}
+
+
+/*------------------------------------------------------------------------------
+    Colors
+------------------------------------------------------------------------------*/
+
+.top-navbar {
+    background:  transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.navbar-brand .material-icons {
+    color: #1a2026;
+}
+
+nav ul a {
+    color: #222;
+}
+
+.dropdown-content {
+    background-color: #1a2026;
+}
+
+.dropdown-content li>a {
+    color: #1a2026;
+}
+
+.dropdown-content li>fa {
+    color: #1a2026;
+}
+
+
+.navbar-right>a:hover,
+.navbar-right>a:focus {
+    background: transparent;
+    color: #e5ebef;
+}
+
+.navbar-default .navbar-brand:hover
+.navbar-default .navbar-brand:focus {
+    color: #e5ebef;
+}
+
+ nav ul a:hover {
+     color: #1a2026;
+ }
+
+.nav > li > a:hover {
+    background-color: transparent;
+    color: #919932;
+}
+
+ .navbar-default .navbar-brand:hover {
+    color: #e5ebef;
+ }
+
+
+/*------------------------------------------------------------------------------
+    MEDIA QUERIES
+------------------------------------------------------------------------------*/
+
+@media(max-width:1810px) {
+   .top-navbar .navbar-right {
+        width: 15%;
+   }
+}
+
+@media(max-width:1440px) {
+    .top-navbar {
+        padding-left: 36%;
+    }
+
+}
+
+
+@media(max-width:952px) {
+    .top-navbar {
+        margin: 0px;
+        padding:10px;
+        height:40px;
+    }
+
+    .top-navbar .navbar-header{
+        width: 50%
+    }
+
+    .top-navbar .navbar-brand {
+        font-size:  3rem;
+    }
+
+    .navbar-brand i.large.material-icons {
+        font-size: 40px;
+    }
+
+
+   .top-navbar .navbar-right {
+        position: absolute;
+        top: 10px;
+        left: 85%;
+        font-size: 2rem;
+        width: 30%;
+
+    }
+
+    .dropdown-content {
+        margin-top: -10px;
+    }
+
+
+}
+
+
+@media(max-width:415px) {
+
+
+    .top-navbar .navbar-brand {
+        height: 40px;
+        width: 220px;
+        font-size:  2rem;
+        padding: 5px;
+
+    }
+
+    .navbar-brand i.large.material-icons {
+        font-size:  2rem;
+
+    }
+
+    .top-navbar .navbar-right {
+        position: absolute;
+        top: 5px;
+        left: 75%;
+        font-size: 2rem;
+        width: 30%;
+
+    }
+
+    .dropdown-content {
+        margin-top: -15px;
+        left: -22px;
+
+    }
+
+    .dropdown-content li > a {
+        font-size: 12px;
+    }
+
+}
+
+

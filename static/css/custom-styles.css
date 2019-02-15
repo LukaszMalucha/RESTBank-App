@@ -1,0 +1,408 @@
+/*----------------------------------------------
+    COMMON  STYLES    
+------------------------------------------------*/
+
+body {
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    margin: 0;
+    padding-bottom: 0;
+    background-color: white;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+#wrapper {
+    width: 100%;
+}
+
+#page-wrapper {
+    position: relative;
+    top: 55px;
+    -moz-box-shadow: 0 0 10px #757575;
+}
+
+#page-index {
+    width: 100%;
+    display: block;
+    overflow: auto;
+    padding: 15px 15px;
+
+}
+
+#page-index a {
+    text-decoration: none;
+    outline: 0;
+    /*font-size: 10px;*/
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn {
+    color: white;
+    background-color: #6ba546;
+    border: none;
+    width: 30%;
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+
+/*----------------------------------------------
+   NAVBAR & MENU STYLES    
+------------------------------------------------*/
+
+
+/*----------------------------------------------
+   DASHBOARD STYLES    
+------------------------------------------------*/
+.header {
+    min-height: 60px;
+}
+
+.page-header {
+    padding-bottom: 0;
+    margin: 0;
+    border-bottom: 1px solid transparent;
+    text-align: left;
+    background-color: transparent;
+    padding: 32px 22px 10px 28px;
+    color: #0e4e66;
+}
+
+
+#status-container {
+    margin-left: 40px;
+}
+
+
+#project-card2 {
+    background-color: #eaeaea;
+    height: 160px;
+    padding-right: 0px;
+    border-left: 6px solid #ff5722;
+    margin-bottom: 20px;
+}
+
+#project-card2 p {
+    color: #2F4F4F;
+}
+
+
+#card-row-upper {
+    height: 70px;
+    margin-left: 0px;
+    margin-bottom: -8px;
+    margin-right: 0px;
+}
+
+#card-row-lower {
+    height: 90px;
+    margin-left: 0px;
+    margin-bottom: -8px;
+    margin-right: 0px;
+}
+
+#card-col {
+    padding-right: 0px;
+}
+
+#pm-img {
+    height: 90%;
+    margin-right: 0px;
+}
+
+#btn-card {
+    height: 58px;
+    width: 42px;
+    margin-right: 15px;
+    border: none;
+    background-color: #115c77;
+    font-size: 16px
+}
+
+#btn-card:hover {
+    background-color: #1b394f;
+}
+
+/*----------------------------------------------
+   PROJECT DETAILS STYLES    
+------------------------------------------------*/
+
+#btn-status {
+    margin: 5px;
+    width: 300px;
+    border-radius: 5px;
+    background-color: #115c77;
+    font-size: 20px;
+}
+
+
+/*----------------------------------------------
+   PROFILE STYLES    
+------------------------------------------------*/
+
+/*----------------------------------------------
+   CHARITY & DONATION STYLES    
+------------------------------------------------*/
+
+
+.page-header a {
+    text-decoration: none
+}
+
+/*----------------------------------------------
+   CHARITY PAYMENT STYLES    
+------------------------------------------------*/
+
+
+/*----------------------------------------------
+   MODALS STYLES    
+------------------------------------------------*/
+
+/*$$$$$$$$$$$$$$$$$$$$$$         DETAILS MODAL        */
+
+#form-card {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #d1481a;
+    background-color: #778899;
+    color: #778899;
+}
+
+#form-card h2,
+#form-card h4,
+#form-card h5 {
+    color: white;
+    padding-top: 0px;
+}
+
+#form-card .row {
+    margin: 10px;
+}
+
+
+/*$$$$$$$$$$$$$$$$$$$$$$         SKILLSET MODAL        */
+
+#name {
+    text-align: center;
+    color: #3b6e99;
+    background-color: white;
+}
+
+#field {
+    margin-top: 0px;
+}
+
+
+/*$$$$$$$$$$$$$$$$$$$$$$        ISSUE MODAL        */
+
+input[type="text"]:focus:not([readonly])+label {
+    color: white;
+}
+
+input[type="number"]:focus:not([readonly])+label {
+    color: white;
+}
+
+
+/*$$$$$$$$$$$$$$$$$$$$$$        CANCEL & FINISH MODAL        */
+
+/*----------------------------------------------
+   FORM STYLES    
+------------------------------------------------*/
+
+#col-form {
+    text-align: center;
+    background-image: url('../../static/img/backg-modal.gif');
+    background-size: cover;
+    color: white;
+    border-radius: 10px;
+}
+
+input:not([type]):focus:not([readonly]) {
+    border-bottom: 1px solid white;
+    box-shadow: 0 1px 0 0 white;
+
+}
+
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+    position: absolute;
+    left: 20px;
+    opacity: 1;
+}
+
+
+/*----------------------------------------------
+    MEDIA QUERIES     
+------------------------------------------------*/
+
+@media (max-width:2560px) {}
+
+
+
+@media (min-width:1200px) and (max-width:1960px) {
+    #project-card2 {
+        height: 200px;
+    }
+
+    #project-card2 h3 {
+        font-size: 22px;
+    }
+
+    #project-card2 p {
+        font-size: 14px;
+    }
+
+    #btn-card {
+        margin-top: 40px;
+    }
+
+}
+
+
+@media(max-width:1900px) {
+
+    h4 {
+        font-size: 14px;
+    }
+
+
+    h5 {
+        font-size: 12px;
+    }
+
+}
+
+
+@media(max-width:1500px) {
+
+    #status-container {
+        margin-left: 0px;
+    }
+
+    #btn-status {
+        width: 100px;
+        font-size: 10px;
+    }
+
+    
+}
+
+@media(max-width:859px) {
+
+
+    .nav::after,
+    .nav::before,
+    .navbar-header::after,
+    .navbar-header::before {
+        display: inline;
+    }
+
+}
+
+@media(min-width:768px) {
+    #page-wrapper {
+        margin: 0 0 0 70px;
+        padding: 0;
+        min-height: 1200px;
+    }
+
+    .navbar {
+        border-radius: 0px;
+    }
+
+}
+
+@media(max-width:768px) {
+    #page-wrapper {
+        position: relative;
+        top: 59px;
+    }
+
+    #page-inner {
+        margin: 0px;
+
+    }
+    .navbar-header {
+        background: #2a5776;
+    }
+}
+
+
+
+@media(max-width:695px) {
+
+    .top-navbar .nav>li>a {
+        display: none;
+    }
+}
+
+
+@media(max-width:520px) {
+
+
+
+    .nav::after,
+    .nav::before,
+    .navbar-header::after,
+    .navbar-header::before {
+        display: inline;
+    }
+
+
+    .top-navbar .nav>li>a {
+        display: none;
+    }
+    .top-navbar .nav>li>a {
+        padding: 17px 12px;
+    }
+
+    #status-container {
+        margin-left: 0px;
+    }
+
+    #btn-status {
+        width: 80px;
+        font-size: 10px;
+    }
+
+    #project-card2 h3 {
+        font-size: 18px;
+    }
+
+    #project-card2 p {
+        font-size: 10px;
+    }
+
+}
+
+
+@media(max-width:480px) {
+    #page-wrapper {
+        position: relative;
+        top: 93px;
+    }
+
+    .btn-success {
+        width: 120px;
+        font-size: 10px;
+    }
+
+}
+
+@media(max-width:320px) {
+    .top-navbar .nav>li>a {
+        padding: 17px 9px;
+    }
+
+}
