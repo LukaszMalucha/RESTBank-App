@@ -1,4 +1,7 @@
 {% extends "base.html" %} {% load staticfiles %} {% load bootstrap_tags %}
+{% block extrahead %}
+<link href="{% static 'css/landing-page.css' %}" rel="stylesheet" />
+{% endblock %}
 {% block content %}
     <h1>My video</h1>
     <ul>
