@@ -11,11 +11,4 @@ def company_view(request):
     assert isinstance(request, HttpRequest)
     queryset = Company.objects.all()
     serializer_class = CompanySerializer(queryset,many=True)
-    #datan = {"title":"Test Title"}
-    return render(
-        request,
-        'companies.html',
-        {
-            'data':serializer_class.data,
-        }
-    )
+    return render( request,'companies.html',{ 'data':serializer_class.data,})
