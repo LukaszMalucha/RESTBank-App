@@ -168,9 +168,10 @@ nav ul a {
     color: #2f3a44;
 }
 
- nav ul a:hover {
-     color: #2f3a44;
- }
+nav ul a:hover,
+nav ul a:focus {
+ color: #2f3a44;
+}
 
 .nav > li > a:hover {
     background-color: transparent;
