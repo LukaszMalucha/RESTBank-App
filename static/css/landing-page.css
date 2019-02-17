@@ -47,9 +47,15 @@ h1,
     font-weight: 600;
 }
 
+primary:active:focus, .btn-primary:active:hover, .open > .dropdown-toggle.btn-primary.focus,
+.open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover,
 .btn-primary:active:focus, .btn-primary:active:hover,
 .btn:hover, .btn:focus, .btn:active {
     background-color: #582554;
+}
+
+.button-form {
+    margin-top: 5px;
 }
 
 p {

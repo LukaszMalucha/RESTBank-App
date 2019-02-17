@@ -10,3 +10,4 @@ urlpatterns = [
     path('my_account/', views.ManageUserView.as_view(), name='my_account')
 
 ]
+

@@ -45,3 +45,38 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'  # customize to email
 
     ### Add  AUTH_USER_MODEL to settings !!!
+
+
+class Instrument(models.Model):
+    """Financial instrument for customer portfolio"""
+    name = models.CharField(max_length=255)
+    symbol = models.CharField(max_length=10)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+
+
+    def __str__(self):
+        return self.symbol
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
