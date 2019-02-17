@@ -49,7 +49,29 @@
     <div id="page-index">
         <i class="material-icons" id="lock">lock</i>
 
-        <h1>asdasd</h1>
+         <form action="" method="CREATE" class="form-signin">
+             {% csrf_token %}
+             <br>
+             <div class="form-box">
+                 <div class="row text-center">
+                    <h4>Register User</h4>
+                 </div>
+                <div class="row text-center">
+                    <div class="input-field col s12">
+                      <input id="email" type="text" class="validate">
+                      <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="input-field col s12">
+                      <input id="password" type="password" class="validate">
+                      <label for="password">Password</label>
+                    </div>
+                </div>
+              </div>
+             <br><br>
+             <button type="submit" class="btn-login"><span>Continue <i class="far fa-arrow-alt-circle-right"></i></span></button>
+        </form>
     </div>
     <!-- PAGE-INDEX -->
 
