@@ -47,14 +47,28 @@ h1,
     font-weight: 600;
 }
 
-.btn:hover,
-.btn:focus,
-.btn:active {
-    background-color: #662b61;
+.btn-primary:active:focus, .btn-primary:active:hover,
+.btn:hover, .btn:focus, .btn:active {
+    background-color: #582554;
 }
 
 p {
     color: black;
+}
+
+
+.route {
+    font-weight: normal;
+    width: 100%;
+    font-size: 12px;
+}
+
+.route:hover,
+.route:active,
+.route:focus {
+    background-color: #582554;
+    color: white;
+
 }
 
 /*------------------------------------------------------------------------------
@@ -410,8 +424,10 @@ ul.breadcrumb {
 ------------------------------------------------------------------------------*/
 
 
-
-input[type="email"]:not(.browser-default),
+input[type="password"]:not(.browser-default),
+input.invalid[type="password"]:not(.browser-default), input.invalid[type="password"]:not(.browser-default):focus,
+input[type="password"]:not(.browser-default):focus:not([readonly]), input.valid[type="password"]:not(.browser-default),
+input[type="password"]:not(.browser-default), input[type="email"]:not(.browser-default),
 input.invalid[type="email"]:not(.browser-default), input.invalid[type="email"]:not(.browser-default):focus,
 input[type="email"]:not(.browser-default):focus:not([readonly]), input.valid[type="email"]:not(.browser-default),
 input[type="number"]:not(.browser-default):focus:not([readonly]), input.valid[type="number"]:not(.browser-default),
@@ -426,6 +442,10 @@ input[type="number"]:not(.browser-default){
     color: black;
     padding: 0px 0px 0px 5px;
 }
+
+input[type="password"]:not(.browser-default),
+input.invalid[type="password"]:not(.browser-default),
+input.invalid[type="password"]:not(.browser-default):focus,
 input[type="email"]:not(.browser-default),
 input.invalid[type="email"]:not(.browser-default),
 input.invalid[type="email"]:not(.browser-default):focus,

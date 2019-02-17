@@ -22,11 +22,13 @@ class UserManager(BaseUserManager):
     # create superuser helper function
     def create_superuser(self, email, password):
         user = self.create_user(email, password)
+        user.is_vip = True
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
 
         return user
+
 
 # Model Class
 class User(AbstractBaseUser, PermissionsMixin):
@@ -34,6 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
+    is_vip = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
     # Assign user manager to objects attribute
@@ -41,4 +44,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'  # customize to email
 
-    ### Add  AUTH_USER_MODEL to settings
+    ### Add  AUTH_USER_MODEL to settings !!!

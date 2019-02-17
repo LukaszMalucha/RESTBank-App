@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'rest_framework',
     'rest_framework.authtoken',
+    'home',
     'core',
     'user',
+
 ]
 
 REST_FRAMEWORK = {

@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <!-- Custom Styles-->
     <link href="{% static 'css/landing-page.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/forms.css' %}" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -37,7 +36,7 @@
         <!-- TOP NAVBAR -->
     <nav class="navbar navbar-default top-navbar" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand waves-effect waves-dark" href=""> <img src="{% static 'img/restbank.png' %}" class="responsive logo-img"></a>
+            <a class="navbar-brand waves-effect waves-dark" href="{% url 'home' %}"> <img src="{% static 'img/restbank.png' %}" class="responsive logo-img"></a>
         </div>
          <ul class="nav navbar-top-links navbar-right">
             <li><a class="dropdown-button waves-effect waves-dark" target="_blank" href=""><i class="fab fa-github" style="color: #24292e;"></i> <b>GitHub</b></a></li>
@@ -46,31 +45,29 @@
         </ul>
     </nav>
     <!-- PAGE-INDEX -->
-    <div id="page-index">
-        <i class="material-icons" id="lock">lock</i>
-
-         <form class="form-signin">
-             <br>
-             <div class="form-box">
-                 <div class="row text-center">
-                    <h4>Register User</h4>
-                 </div>
-                <div class="row text-center">
-                    <div class="input-field col s12">
-                      <input id="email" type="text" class="validate">
-                      <label for="email">Email</label>
-                    </div>
+    <div class="wrapper">
+        <div class="row" style=" height:100px"></div>
+            <div class="container text-center welcome">
+                <div class="row">
+                <h3>Welcome to the RESTBank API</h3>
                 </div>
-                <div class="row text-center">
-                    <div class="input-field col s12">
-                      <input id="password" type="password" class="validate">
-                      <label for="password">Password</label>
-                    </div>
+                <br>
+                <div class="row">
+                <div class="col-md-2 text-center"> </div>
+                <div class="col-md-2 text-center">
+                    <button onclick="window.location='{% url 'user:create' %}'" class="btn route" ><b>Register</b></button>
                 </div>
-              </div>
-             <br><br>
-             <button type="submit" class="btn-login"><span>Continue <i class="far fa-arrow-alt-circle-right"></i></span></button>
-        </form>
+                <div class="col-md-2 text-center">
+                    <button onclick="window.location='{% url 'user:token' %}'" class="btn route" ><b>Authenticate</b></button>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button onclick="window.location='{% url 'user:token' %}'" class="btn route" ><b>Account</b></button>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button onclick="window.location='{% url 'user:token' %}'" class="btn route" ><b>Portfolio</b></button>
+                </div>
+            </div>
+                <br>
     </div>
     <!-- PAGE-INDEX -->
 
