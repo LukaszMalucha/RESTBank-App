@@ -27,14 +27,18 @@ body {
     width: 100%;
     background-color: white;
     border-radius: 20px;
-    border: 1px outset grey ;
+    border: 1px outset grey;
 
 }
 
-
+h1,
 .page-header {
     color: #662b61;
+    margin: 10px 0px 10px 0px;
+    border: none;
 }
+
+
 
 
 .btn {
@@ -57,13 +61,19 @@ p {
     TOP NAVBAR
 ------------------------------------------------------------------------------*/
 
+.navbar {
+    border-radius: 0px;
+}
+
 .top-navbar .navbar-brand strong {
     font-size: 20px;
     font-weight: bold;
     display: block;
     color: #222;
 
+
 }
+
 
 .top-navbar {
     position: fixed;
@@ -343,7 +353,7 @@ nav ul a:hover {
 }
 
 ul.breadcrumb {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .breadcrumb li.active a {
@@ -352,5 +362,87 @@ ul.breadcrumb {
 
 .breadcrumb li.active a:hover {
     color: grey;
-    text-decoration: none;
+}
+
+
+
+/*------------------------------------------------------------------------------
+    CONTENTS
+------------------------------------------------------------------------------*/
+
+#content {
+    padding-bottom: 10px;
+}
+
+.prettyprint {
+    border: 1px solid #acacae;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+}
+
+
+
+
+.well {
+    border: 1px solid #acacae;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    border-top-left-radius: 0px;
+}
+
+.well label {
+    color: #333;
+
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: black;
+}
+
+.nav-tabs {
+    border: none;
+}
+
+
+/*------------------------------------------------------------------------------
+    EDIT & ADD FORMS +
+------------------------------------------------------------------------------*/
+
+
+
+input[type="email"]:not(.browser-default),
+input.invalid[type="email"]:not(.browser-default), input.invalid[type="email"]:not(.browser-default):focus,
+input[type="email"]:not(.browser-default):focus:not([readonly]), input.valid[type="email"]:not(.browser-default),
+input[type="number"]:not(.browser-default):focus:not([readonly]), input.valid[type="number"]:not(.browser-default),
+input.invalid[type="text"]:not(.browser-default), input.invalid[type="text"]:not(.browser-default):focus,
+input.invalid[type="text"]:not(.browser-default), input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="text"]:not(.browser-default), input.valid[type="text"]:not(.browser-default), input[type="search"]:not(.browser-default),
+input[type="search"]:not(.browser-default):focus:not([readonly]), input.invalid[type="number"]:not(.browser-default),
+input.invalid[type="number"]:not(.browser-default), input.invalid[type="number"]:not(.browser-default):focus,
+input[type="number"]:not(.browser-default){
+    border-bottom: none;
+    box-shadow: none;
+    color: black;
+    padding: 0px 0px 0px 5px;
+}
+input[type="email"]:not(.browser-default),
+input.invalid[type="email"]:not(.browser-default),
+input.invalid[type="email"]:not(.browser-default):focus,
+input[type="number"]:not(.browser-default),
+input.invalid[type="number"]:not(.browser-default),
+input.invalid[type="number"]:not(.browser-default):focus,
+input[type="text"]:not(.browser-default),
+input.invalid[type="text"]:not(.browser-default),
+ input.invalid[type="number"]:not(.browser-default){
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+
+    background-color: #fff;
+    border: 1px solid #acacae;
+    border-bottom-color: transparent;
 }
