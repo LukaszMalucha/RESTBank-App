@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from core.permissions import IsAdminOrReadOnly
-from core.models import Instrument, Portfolio, CashBalance, Transaction
+from core.models import Instrument, Portfolio,  Transaction
 
 from portfolio import serializers
 from django.conf import settings
@@ -33,18 +33,24 @@ class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.C
         serializer.save()
 
 
-class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
-    """Customer's cash balance"""
+# class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
+#     """Customer's cash balance"""
+#     authentication_classes = (TokenAuthentication,)
+#     permission_classes = (IsAuthenticated,)
+#     queryset = CashBalance.objects.all()
+#     serializer_class = serializers.CashBalanceSerializer
+#
+#     def get_queryset(self):
+#
+#         return CashBalance.objects.filter(owner=self.request.user)
+
+
+class PortfolioViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    queryset = CashBalance.objects.all()
-    serializer_class = serializers.CashBalanceSerializer
+    queryset = Portfolio.objects.all()
+    serializer_class = serializers.PortfolioSerializer
 
     def get_queryset(self):
 
-        return CashBalance.objects.filter(owner=self.request.user)
-
-
-    ### UPDATE VIEW
-
-
+        return Portfolio.objects.filter(owner=self.request.user)

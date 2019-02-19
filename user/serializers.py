@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _  # future translations
 
 from rest_framework import serializers
-from core.models import CashBalance
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -10,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'name')
+        fields = ('email', 'password', 'name', 'cash_balance')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):

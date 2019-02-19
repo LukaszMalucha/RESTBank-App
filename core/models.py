@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that allows using email instead of username"""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    cash_balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     is_active = models.BooleanField(default=True)
     is_vip = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -42,11 +43,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'  # customize to email
-
-    def save(self, *args, **kwargs):
-        super(User, self).save(*args, **kwargs)
-        cash_balance = CashBalance(cash_balance=0, owner=self)
-        cash_balance.save()
 
     ### Add  AUTH_USER_MODEL to settings !!!
 
@@ -68,20 +64,21 @@ class Portfolio(models.Model):
     """Customer's account details"""
     title = models.CharField(max_length=255)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    instruments = models.ManyToManyField('Instrument')
+    assets = models.ManyToManyField('Asset')
 
     def __str__(self):
         return f"{self.owner}-{self.title}"
 
 
-class CashBalance(models.Model):
-    """Customer's cash balance"""
-    cash_balance = models.DecimalField(max_digits=12, decimal_places=2)
-    owner = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
-
+class Asset(models.Model):
+    """Customer owned asset"""
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"Cash on hand - {self.owner}"
+        return f"{self.quantity} of {self.instrument}"
+
 
 
 class Transaction(models.Model):
