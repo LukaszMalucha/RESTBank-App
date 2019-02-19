@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _  # future translations
 
 from rest_framework import serializers
+from core.models import CashBalance
 
 
 class UserSerializer(serializers.ModelSerializer):

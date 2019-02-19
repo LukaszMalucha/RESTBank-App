@@ -16,7 +16,6 @@ class UserManager(BaseUserManager):
         user = self.model(email=self.normalize_email(email), **extra_fields)  # helper function to lowercase email
         user.set_password(password)  # hash helper function
         user.save(using=self._db)  # in case of multiple dbs
-
         return user
 
     # create superuser helper function
@@ -44,7 +43,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'  # customize to email
 
+    def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+        cash_balance = CashBalance(cash_balance=0, owner=self)
+        cash_balance.save()
+
     ### Add  AUTH_USER_MODEL to settings !!!
+
+
+
 
 
 class Instrument(models.Model):
@@ -53,47 +60,36 @@ class Instrument(models.Model):
     symbol = models.CharField(max_length=10)
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
-
     def __str__(self):
         return self.symbol
 
 
-class Account(models.Model):
-    """Customer account details"""
+class Portfolio(models.Model):
+    """Customer's account details"""
     title = models.CharField(max_length=255)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instruments = models.ManyToManyField('Instrument')
-    cash = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
         return f"{self.owner}-{self.title}"
 
 
-class Transaction(models.Model):
+class CashBalance(models.Model):
+    """Customer's cash balance"""
+    cash_balance = models.DecimalField(max_digits=12, decimal_places=2)
+    owner = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
 
-    account = models.ForeignKey(Account,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Cash on hand - {self.owner}"
+
+
+class Transaction(models.Model):
+    account = models.ForeignKey('Portfolio', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    instrument = models.ForeignKey(Instrument,on_delete=models.CASCADE)
+    instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=12, decimal_places=2)
-    type = models.CharField(max_length=5) ## buy or sell
+    type = models.CharField(max_length=5)  ## buy or sell
 
     def __str__(self):
         return f"{self.account}-{self.instrument}-{self.created_at}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
