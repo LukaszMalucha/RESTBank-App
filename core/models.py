@@ -58,10 +58,27 @@ class Instrument(models.Model):
         return self.symbol
 
 
+class Account(models.Model):
+    """Customer account details"""
+    title = models.CharField(max_length=255)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    instruments = models.ManyToManyField('Instrument')
+    cash = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.owner}-{self.title}"
 
 
+class Transaction(models.Model):
 
+    account = models.ForeignKey(Account,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    instrument = models.ForeignKey(Instrument,on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=12, decimal_places=2)
+    type = models.CharField(max_length=5) ## buy or sell
 
+    def __str__(self):
+        return f"{self.account}-{self.instrument}-{self.created_at}"
 
 
 
