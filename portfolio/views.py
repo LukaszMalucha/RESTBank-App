@@ -5,21 +5,16 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from core.permissions import IsAdminOrReadOnly
-from core.models import Instrument, Portfolio,  Transaction
+from core.models import Instrument
 
 from portfolio import serializers
 from django.conf import settings
 
 
-class BasePortfolioViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
-
 class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
     """Manage instruments in the database"""
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsAdminOrReadOnly)
     queryset = Instrument.objects.all()
     serializer_class = serializers.InstrumentSerializer
 
@@ -29,28 +24,26 @@ class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.C
 
     def perform_create(self, serializer):
         """Create a new financial instrument"""
-        self.permission_classes = (IsAdminOrReadOnly,)
         serializer.save()
 
 
-# class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
-#     """Customer's cash balance"""
+
+
+
+
+
+# class PortfolioViewSet(viewsets.ViewSet):
 #     authentication_classes = (TokenAuthentication,)
 #     permission_classes = (IsAuthenticated,)
-#     queryset = CashBalance.objects.all()
-#     serializer_class = serializers.CashBalanceSerializer
+#     queryset = Portfolio.objects.all()
+#     serializer_class = serializers.PortfolioSerializer
 #
-#     def get_queryset(self):
+#     def list(self, request):
+#         queryset = Portfolio.objects.filter(owner=self.request.user)
+#         serializer = serializers.PortfolioSerializer(queryset, many=True)
+#         return Response(serializer.data)
 #
-#         return CashBalance.objects.filter(owner=self.request.user)
-
-
-class PortfolioViewSet(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    queryset = Portfolio.objects.all()
-    serializer_class = serializers.PortfolioSerializer
-
-    def get_queryset(self):
-
-        return Portfolio.objects.filter(owner=self.request.user)
+#
+#
+# class TransactionViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
+#     pass

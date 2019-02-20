@@ -12,7 +12,7 @@ class UserAdmin(BaseUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal Info'), {'fields': ('name','cash_balance')}),
+        (_('Personal Info'), {'fields': ('name',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_vip')}),
         (_('Important dates'), {'fields': ('last_login',)}))
     # Page for adding new users
@@ -23,4 +23,4 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Portfolio)
+admin.site.register(models.Instrument)

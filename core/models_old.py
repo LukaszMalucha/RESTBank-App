@@ -43,6 +43,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'  # customize to email
 
+    def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+        portfolio = Portfolio(title=f"{self.name}'s Portfolio", owner=self)
+        portfolio.save()
+        asset = Asset(portfolio=portfolio, instrument=Instrument.objects.filter(name="CASH").first(), quantity=0)
+        asset.save()
+
     ### Add  AUTH_USER_MODEL to settings !!!
 
 
@@ -56,11 +63,33 @@ class Instrument(models.Model):
         return self.symbol
 
 
+class Portfolio(models.Model):
+    """Customer's account details"""
+    title = models.CharField(max_length=255)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    # def save(self, *args, **kwargs):
+
+
+    def __str__(self):
+        return f"{self.owner} - {self.title}"
+
+
 class Asset(models.Model):
     """Customer owned asset"""
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return f"{self.quantity} of {self.instrument}"
+
+
+class Transaction(models.Model):
+    account = models.ForeignKey('Portfolio', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.account}-{self.instrument}-{self.created_at}"
