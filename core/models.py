@@ -43,6 +43,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'  # customize to email
 
+    def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+        asset = Asset(owner=self, instrument=Instrument.objects.filter(name="CASH").first(), quantity=100000)
+        asset.save()
+
+
+
     ### Add  AUTH_USER_MODEL to settings !!!
 
 
@@ -64,3 +71,5 @@ class Asset(models.Model):
 
     def __str__(self):
         return f"{self.quantity} of {self.instrument}"
+
+### Buy assets, sell assets views separate.

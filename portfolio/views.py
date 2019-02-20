@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.decorators import api_view
 from core.permissions import IsAdminOrReadOnly
 from core.models import Instrument, Asset
 
@@ -48,6 +48,7 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
+    # lookup_field = "instrument"
 
     def get_queryset(self):
         queryset = self.queryset
