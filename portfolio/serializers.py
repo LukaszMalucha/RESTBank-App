@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import User, Instrument
+from core.models import User, Instrument, Asset
 from django.conf import settings
 from user.serializers import UserSerializer
 
@@ -15,15 +15,32 @@ class InstrumentSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)  # Tuple!
 
 
-# class AssetSerializer(serializers.ModelSerializer):
-#     """Serializer for assets"""
+class AssetSerializer(serializers.ModelSerializer):
+    """Serializer for assets"""
+    symbol = serializers.ReadOnlyField(source="instrument.symbol")
+
+    class Meta:
+        model = Asset
+        fields = ('id','symbol', 'quantity')
+        read_only_fields = '__all__',
+
+# class CashBalanceSerializer(serializers.ModelSerializer):
+#     """Serializer for cash balance"""
+#     symbol = serializers.ReadOnlyField(source="instrument.symbol")
 #
 #     class Meta:
 #         model = Asset
-#         fields = '__all__'
-#         read_only_fields = '__all__'
+#         fields = ('id','symbol', 'quantity')
+#         read_only_fields = '__all__',
 #
-#
+
+
+
+
+
+
+
+
 # class TransactionSerializer(serializers.ModelSerializer):
 #     """Serializer for transactions"""
 #
@@ -43,5 +60,3 @@ class InstrumentSerializer(serializers.ModelSerializer):
 #         fields = ('id', 'title', 'owner_email', 'assets')
 #         read_only_fields = ('id', 'owner_email', 'assets')
 #
-
-

@@ -93,3 +93,43 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.account}-{self.instrument}-{self.created_at}"
+
+
+class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,):
+    """Cash Balance view"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.AssetSerializer
+    queryset = Asset.objects.all()
+
+
+    #
+    # def list(self, request, *args, **kwargs):
+    #     queryset = Asset.objects.filter(owner=self.request.user).filter(
+    #         instrument=Instrument.objects.filter(name="CASH").first())
+    #     serializer = serializers.AssetSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+    #
+    #
+    #
+    # def get(self, request, *args, **kwargs):
+    #     queryset = Asset.objects.filter(owner=self.request.user).filter(
+    #         instrument=Instrument.objects.filter(name="CASH").first())
+    #     serializer = serializers.AssetSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+    #
+    # def retrieve(self, request, pk=None):
+    #     queryset = Asset.objects.all()
+    #     cash_balance = get_object_or_404(queryset, pk=pk)
+    #     serializer = serializers.AssetSerializer(cash_balance)
+    #     return Response(serializer.data)
+    #
+    # def update(self, request, pk=None):
+    #     instance = self.get_object()
+    #     serializer = self.get_serializer(instance, data=request.data, partial=partial)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_update(serializer)
+    #     return Response(serializer.data)
+
+
+

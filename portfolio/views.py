@@ -5,10 +5,11 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from core.permissions import IsAdminOrReadOnly
-from core.models import Instrument
+from core.models import Instrument, Asset
 
 from portfolio import serializers
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 
 class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
@@ -27,23 +28,27 @@ class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.C
         serializer.save()
 
 
+class PortfolioViewSet(viewsets.ViewSet):
+    """Asset management in db"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.AssetSerializer
+    queryset = Asset.objects.all()
+
+    def list(self, request):
+        queryset = Asset.objects.filter(owner=self.request.user)
+        serializer = serializers.AssetSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
+class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                         mixins.UpdateModelMixin, ):
+    """Cash Balance view"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.AssetSerializer
+    queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
 
-
-
-# class PortfolioViewSet(viewsets.ViewSet):
-#     authentication_classes = (TokenAuthentication,)
-#     permission_classes = (IsAuthenticated,)
-#     queryset = Portfolio.objects.all()
-#     serializer_class = serializers.PortfolioSerializer
-#
-#     def list(self, request):
-#         queryset = Portfolio.objects.filter(owner=self.request.user)
-#         serializer = serializers.PortfolioSerializer(queryset, many=True)
-#         return Response(serializer.data)
-#
-#
-#
-# class TransactionViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
-#     pass
+    def get_queryset(self):
+        queryset = self.queryset
+        return queryset.filter(owner=self.request.user)
