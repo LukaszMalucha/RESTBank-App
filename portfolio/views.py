@@ -1,20 +1,17 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets, mixins, status
+from rest_framework import viewsets, mixins, status, views
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
+from rest_framework.viewsets import ViewSet
+
 from core.permissions import IsAdminOrReadOnly
 from core.models import Instrument, Asset, BuyTransaction, SellTransaction
-
+from rest_framework.views import APIView
 from portfolio import serializers
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-
-
-
-
-
 
 
 class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
@@ -54,25 +51,21 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
 
-    # lookup_field = "instrument"
-
     def get_queryset(self):
         queryset = self.queryset
         return queryset.filter(owner=self.request.user)
 
+    def post(self, request):
+        cash_serializer = serializers.AssetSerializer(data=request.data)
+        cash_balance = Asset.objects.get(instrument__name="CASH", owner=request.user)
+        if cash_serializer.is_valid():
+            top_up = int(request.data['quantity'])
+            cash_balance.quantity += top_up
+            cash_balance.save()
+            return Response('TOP up success ')
 
 
-class CashTopUpViewSet(viewsets.GenericViewSet, mixins.UpdateModelMixin):
-
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    serializer_class = serializers.AssetSerializer
-    queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
-
-
-
-
-
+# Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH")).filter(owner=self.request.user)
 
 class BuyAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
     """Buy Asset view"""
