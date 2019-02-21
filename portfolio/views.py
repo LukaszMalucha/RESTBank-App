@@ -12,6 +12,11 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 
 
+
+
+
+
+
 class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
     """Manage instruments in the database"""
     authentication_classes = (TokenAuthentication,)
@@ -56,12 +61,25 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
         return queryset.filter(owner=self.request.user)
 
 
+
+class CashTopUpViewSet(viewsets.GenericViewSet, mixins.UpdateModelMixin):
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.AssetSerializer
+    queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
+
+
+
+
+
+
 class BuyAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
     """Buy Asset view"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.BuyTransactionSerializer
-    queryset = Asset.objects.all()
+    queryset = BuyTransaction.objects.all()
 
     def get_queryset(self):
         queryset = self.queryset
@@ -78,7 +96,7 @@ class SellAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Cr
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.SellTransactionSerializer
-    queryset = Asset.objects.all()
+    queryset = SellTransaction.objects.all()
 
     def get_queryset(self):
         queryset = self.queryset

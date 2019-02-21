@@ -81,6 +81,12 @@ p {
     TOP NAVBAR
 ------------------------------------------------------------------------------*/
 
+nav {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+
 .navbar {
     border-radius: 0px;
 }
@@ -90,9 +96,14 @@ p {
     font-weight: bold;
     display: block;
     color: #222;
-
-
 }
+
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover {
+    background-color: #662b61;
+    border-color: #662b61;
+}
+
 
 
 .top-navbar {

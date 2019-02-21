@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         asset = Asset(owner=self, instrument=Instrument.objects.filter(name="CASH").first(), quantity=100000)
         asset.save()
 
-    ### Add  AUTH_USER_MODEL to settings !!!
+    # Add  AUTH_USER_MODEL to settings !!!
 
 
 class Instrument(models.Model):
@@ -128,9 +128,14 @@ class SellTransaction(models.Model):
         cash_balance.quantity += value
         cash_balance.save()
         asset = Asset.objects.get(owner=self.owner, instrument=self.instrument)
-        ##check quant
-        # asset = Asset.objects.filter(owner=self.owner).filter(instrument=self.instrument).first()
-        asset.delete()
+        asset_balance = asset.quantity - self.quantity
+        if asset_balance < 0:
+            pass
+        elif asset_balance == 0:
+            asset.delete()
+        else:
+            asset.quantity -= self.quantity
+            asset.save()
 
     def __str__(self):
         return f"{self.created_at} - SELL - {self.quantity} of {self.instrument}"
