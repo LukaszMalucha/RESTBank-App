@@ -21,7 +21,7 @@ class AssetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Asset
-        fields = ('id', 'symbol', 'quantity')
+        fields = ('id', 'symbol', 'quantity','value')
         read_only_fields = '__all__',
 
 

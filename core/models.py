@@ -67,11 +67,14 @@ class Asset(models.Model):
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
+    def value(self):
+        quantity = self.quantity
+        price = self.instrument.price
+        total = quantity * price
+        return total
+
     def __str__(self):
         return f"{self.quantity} of {self.instrument}"
-
-
-### Buy assets, sell assets views separate.
 
 
 class BuyTransaction(models.Model):
@@ -93,8 +96,13 @@ class BuyTransaction(models.Model):
         cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="CASH").first()
         cash_balance.quantity -= value
         cash_balance.save()
-        asset = Asset(owner=self.owner, instrument=self.instrument, quantity=self.quantity)
-        asset.save()
+        existing_asset = Asset.objects.filter(owner=self.owner).filter(instrument=self.instrument).first()
+        if not existing_asset:
+            asset = Asset(owner=self.owner, instrument=self.instrument, quantity=self.quantity)
+            asset.save()
+        else:
+            existing_asset.quantity += self.quantity
+            existing_asset.save()
 
     def __str__(self):
         return f"{self.created_at} - BUY - {self.quantity} of {self.instrument}"
@@ -121,6 +129,7 @@ class SellTransaction(models.Model):
         cash_balance.save()
         asset = Asset.objects.get(owner=self.owner, instrument=self.instrument)
         ##check quant
+        # asset = Asset.objects.filter(owner=self.owner).filter(instrument=self.instrument).first()
         asset.delete()
 
     def __str__(self):
