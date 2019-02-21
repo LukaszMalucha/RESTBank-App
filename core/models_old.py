@@ -103,6 +103,9 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
     queryset = Asset.objects.all()
 
 
+
+
+
     #
     # def list(self, request, *args, **kwargs):
     #     queryset = Asset.objects.filter(owner=self.request.user).filter(

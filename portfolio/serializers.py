@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import User, Instrument, Asset
+from core.models import User, Instrument, Asset, BuyTransaction
 from django.conf import settings
 from user.serializers import UserSerializer
 
@@ -25,3 +25,10 @@ class AssetSerializer(serializers.ModelSerializer):
         read_only_fields = '__all__',
 
 
+class BuyTransactionSerializer(serializers.ModelSerializer):
+    """Serializer for assets"""
+    symbol = serializers.ReadOnlyField(source="instrument.symbol")
+
+    class Meta:
+        model = BuyTransaction
+        fields = ('id','symbol', 'instrument','quantity', 'created_at')

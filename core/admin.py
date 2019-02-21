@@ -25,3 +25,4 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Instrument)
 admin.site.register(models.Asset)
+admin.site.register(models.BuyTransaction)

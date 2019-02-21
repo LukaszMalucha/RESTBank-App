@@ -73,3 +73,32 @@ class Asset(models.Model):
         return f"{self.quantity} of {self.instrument}"
 
 ### Buy assets, sell assets views separate.
+
+
+class BuyTransaction(models.Model):
+    """Buy asset"""
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.created_at} - BUY - {self.quantity} of {self.instrument}"
+
+
+class SellTransaction(models.Model):
+    """Buy asset"""
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.created_at} - SELL - {self.quantity} of {self.instrument}"
+
+
+
+
+
+
+

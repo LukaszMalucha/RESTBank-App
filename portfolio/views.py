@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from core.permissions import IsAdminOrReadOnly
-from core.models import Instrument, Asset
+from core.models import Instrument, Asset, BuyTransaction, SellTransaction
 
 from portfolio import serializers
 from django.conf import settings
@@ -53,3 +53,19 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
     def get_queryset(self):
         queryset = self.queryset
         return queryset.filter(owner=self.request.user)
+
+
+class BuyAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
+    """Buy Asset view"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.BuyTransactionSerializer
+    queryset = BuyTransaction.objects.all()
+
+    def get_queryset(self):
+        queryset = self.queryset
+        return queryset.filter(owner=self.request.user)
+
+    def perform_create(self, serializer):
+        """Create a new financial instrument"""
+        serializer.save(owner=self.request.user)

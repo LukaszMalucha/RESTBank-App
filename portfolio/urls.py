@@ -7,6 +7,7 @@ router = DefaultRouter()
 router.register('instruments', views.InstrumentViewSet)
 router.register('cash_balance', views.CashBalanceViewSet)
 router.register('my_portfolio', views.PortfolioViewSet, basename='my_portfolio')
+router.register('buy_assets', views.BuyAssetViewSet)
 
 app_name = 'portfolio'
 
