@@ -48,6 +48,7 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
+
     # lookup_field = "instrument"
 
     def get_queryset(self):
@@ -60,12 +61,29 @@ class BuyAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Cre
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.BuyTransactionSerializer
-    queryset = BuyTransaction.objects.all()
+    queryset = Asset.objects.all()
+
+    def get_queryset(self):
+        queryset = self.queryset
+
+        return queryset.filter(owner=self.request.user)
+
+    def perform_create(self, serializer):
+        """Create a new financial instrument"""
+        serializer.save(owner=self.request.user)
+
+
+class SellAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
+    """Buy Asset view"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.SellTransactionSerializer
+    queryset = Asset.objects.all()
 
     def get_queryset(self):
         queryset = self.queryset
         return queryset.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
-        """Create a new financial instrument"""
+        """Sell  financial instrument"""
         serializer.save(owner=self.request.user)

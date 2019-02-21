@@ -48,8 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         asset = Asset(owner=self, instrument=Instrument.objects.filter(name="CASH").first(), quantity=100000)
         asset.save()
 
-
-
     ### Add  AUTH_USER_MODEL to settings !!!
 
 
@@ -72,6 +70,7 @@ class Asset(models.Model):
     def __str__(self):
         return f"{self.quantity} of {self.instrument}"
 
+
 ### Buy assets, sell assets views separate.
 
 
@@ -81,6 +80,21 @@ class BuyTransaction(models.Model):
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def value(self):
+        quantity = self.quantity
+        price = self.instrument.price
+        total = quantity * price
+        return total
+
+    def save(self, *args, **kwargs):
+        super(BuyTransaction, self).save(*args, **kwargs)
+        value = self.value()
+        cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="CASH").first()
+        cash_balance.quantity -= value
+        cash_balance.save()
+        asset = Asset(owner=self.owner, instrument=self.instrument, quantity=self.quantity)
+        asset.save()
 
     def __str__(self):
         return f"{self.created_at} - BUY - {self.quantity} of {self.instrument}"
@@ -93,12 +107,21 @@ class SellTransaction(models.Model):
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def value(self):
+        quantity = self.quantity
+        price = self.instrument.price
+        total = quantity * price
+        return total
+
+    def save(self, *args, **kwargs):
+        super(SellTransaction, self).save(*args, **kwargs)
+        value = self.value()
+        cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="CASH").first()
+        cash_balance.quantity += value
+        cash_balance.save()
+        asset = Asset.objects.get(owner=self.owner, instrument=self.instrument)
+        ##check quant
+        asset.delete()
+
     def __str__(self):
         return f"{self.created_at} - SELL - {self.quantity} of {self.instrument}"
-
-
-
-
-
-
-
