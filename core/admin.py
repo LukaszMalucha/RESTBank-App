@@ -9,6 +9,7 @@ class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['email', 'name']
     list_filter = ('is_active', 'is_staff', 'is_superuser', 'is_vip')
+    search_fields = ['email', 'name']
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -21,9 +22,28 @@ class UserAdmin(BaseUserAdmin):
 
 
 
+class InstrumentModelAdmin(admin.ModelAdmin):
+    list_display = ["symbol", "name", "price"]
+    search_fields = ["symbol", "name"]
+
+    class Meta:
+        model = models.Instrument
+
+
+
+class AssetModelAdmin(admin.ModelAdmin):
+    ordering = ['owner', 'instrument']
+    list_display = ["owner", "instrument", "quantity", "value"]
+    search_fields = ["owner", "instrument"]
+
+    class Meta:
+        model = models.Asset
+
+
+
 
 admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Instrument)
-admin.site.register(models.Asset)
+admin.site.register(models.Instrument, InstrumentModelAdmin)
+admin.site.register(models.Asset, AssetModelAdmin)
 admin.site.register(models.BuyTransaction)
 admin.site.register(models.SellTransaction)

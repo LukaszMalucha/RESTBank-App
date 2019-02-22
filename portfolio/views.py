@@ -30,7 +30,7 @@ class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.C
         serializer.save()
 
 
-class PortfolioViewSet(viewsets.ViewSet):
+class AccountViewSet(viewsets.ViewSet):
     """Asset management in db"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -43,8 +43,7 @@ class PortfolioViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin,
-                         mixins.UpdateModelMixin, ):
+class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     """Cash Balance view"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -64,8 +63,6 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.
             cash_balance.save()
             return Response('TOP up success ')
 
-
-# Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH")).filter(owner=self.request.user)
 
 class BuyAssetViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
     """Buy Asset view"""
