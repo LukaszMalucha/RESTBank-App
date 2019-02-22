@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from core.models import User, Instrument, Asset, BuyTransaction, SellTransaction
-from django.conf import settings
-from user.serializers import UserSerializer
+from core.models import Instrument, Asset, BuyTransaction, SellTransaction
 
 
 class InstrumentSerializer(serializers.ModelSerializer):

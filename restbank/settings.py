@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'rest_framework',
     'rest_framework.authtoken',
+    'daterange_filter',
     'home',
     'core',
     'user',
@@ -132,7 +133,7 @@ USE_L10N = False
 
 USE_TZ = True
 
-DATETIME_INPUT_FORMATS = ('%Y-%m-%d %H:%M:%S',)
+DATETIME_INPUT_FORMATS += ('%Y-%m-%d %H:%M %p',)
 
 
 

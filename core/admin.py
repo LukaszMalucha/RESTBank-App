@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
+from daterange_filter.filter import DateRangeFilter
 
 from core import models
 
@@ -34,16 +35,35 @@ class InstrumentModelAdmin(admin.ModelAdmin):
 class AssetModelAdmin(admin.ModelAdmin):
     ordering = ['owner', 'instrument']
     list_display = ["owner", "instrument", "quantity", "value"]
+    list_filter = ('instrument',)
     search_fields = ["owner", "instrument"]
 
     class Meta:
         model = models.Asset
 
 
+class BuyTransactionModelAdmin(admin.ModelAdmin):
+    ordering = ['owner', 'created_at']
+    list_display = ["owner", "instrument", "quantity", "value", "created_at"]
+    list_filter = ('instrument',('created_at', DateRangeFilter))
+    search_fields = ["owner", "instrument"]
+
+    class Meta:
+        model = models.BuyTransaction
+
+
+class SellTransactionModelAdmin(admin.ModelAdmin):
+    ordering = ['owner', 'created_at']
+    list_display = ["owner", "instrument", "quantity", "value", "created_at"]
+    list_filter = ('instrument', ('created_at', DateRangeFilter))
+    search_fields = ["owner", "instrument"]
+
+    class Meta:
+        model = models.SellTransaction
 
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Instrument, InstrumentModelAdmin)
 admin.site.register(models.Asset, AssetModelAdmin)
-admin.site.register(models.BuyTransaction)
-admin.site.register(models.SellTransaction)
+admin.site.register(models.BuyTransaction, BuyTransactionModelAdmin)
+admin.site.register(models.SellTransaction, SellTransactionModelAdmin)

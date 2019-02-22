@@ -1,5 +1,3 @@
-import uuid
-import os
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
@@ -105,7 +103,7 @@ class BuyTransaction(models.Model):
             existing_asset.save()
 
     def __str__(self):
-        return f"{self.created_at} - BUY - {self.quantity} of {self.instrument}"
+        return f"{self.owner}: {self.quantity} of {self.instrument}"
 
 
 class SellTransaction(models.Model):
