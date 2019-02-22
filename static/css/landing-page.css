@@ -47,15 +47,37 @@ h1,
     font-weight: 600;
 }
 
-primary:active:focus, .btn-primary:active:hover, .open > .dropdown-toggle.btn-primary.focus,
-.open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover,
-.btn-primary:active:focus, .btn-primary:active:hover,
-.btn:hover, .btn:focus, .btn:active {
+primary:active:focus,
+.btn-primary:active:hover,
+.open>.dropdown-toggle.btn-primary.focus,
+.open>.dropdown-toggle.btn-primary:focus,
+.open>.dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn:hover,
+.btn:focus,
+.btn:active {
     background-color: #582554;
 }
 
 .button-form {
     margin-top: 5px;
+}
+
+.btn-danger {
+    background-color: #cf0d16;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
+    background-color: #ba0b13;
+    color: white;
+}
+
+
+.modal .button-form {
+    margin-top: 0px;
 }
 
 p {
@@ -69,13 +91,28 @@ p {
     font-size: 12px;
 }
 
+.btn-default:hover,
+btn-default:active,
+btn-default:focus,
 .route:hover,
 .route:active,
 .route:focus {
     background-color: #582554;
     color: white;
-
 }
+
+
+#deleteModal {
+    width: 35%;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.modal .modal-footer {
+    background-color: transparent;
+    border: none;
+}
+
 
 /*------------------------------------------------------------------------------
     TOP NAVBAR
@@ -99,7 +136,9 @@ nav {
 }
 
 
-.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover {
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover {
     background-color: #662b61;
     border-color: #662b61;
 }
@@ -121,7 +160,7 @@ nav {
 }
 
 .top-navbar .navbar-brand {
-    margin:0px;
+    margin: 0px;
     width: 200px;
     height: auto;
     text-align: left;
@@ -133,7 +172,7 @@ nav {
 }
 
 
-.navbar-brand  .material-icons {
+.navbar-brand .material-icons {
     float: left;
     font-size: 28px;
     margin-right: 5px;
@@ -142,15 +181,16 @@ nav {
 
 }
 
-.nav > li > a {
+.nav>li>a {
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-right:5px;
+    padding-right: 5px;
 
 }
 
-.nav i, .nav i.material-icons {
-    height:20px;
+.nav i,
+.nav i.material-icons {
+    height: 20px;
     font-size: 15px;
     margin-right: 5px;
 }
@@ -193,6 +233,7 @@ nav ul b {
     font-size: 14px;
     text-decoration: none;
 }
+
 .dropdown-content li>a>i {
     margin-right: 12px;
     font-size: 18px;
@@ -205,7 +246,7 @@ nav ul b {
 }
 
 .logo-img {
-    width:auto;
+    width: auto;
     height: 40px;
 }
 
@@ -241,7 +282,7 @@ nav ul a:hover {
 ------------------------------------------------------------------------------*/
 
 .top-navbar {
-    background:  white;
+    background: white;
     box-shadow: none;
     border: none;
 }
@@ -262,24 +303,23 @@ nav ul a:hover {
     color: #8b8b8b;
 }
 
-.navbar-default .navbar-brand:hover
-.navbar-default .navbar-brand:focus {
+.navbar-default .navbar-brand:hover .navbar-default .navbar-brand:focus {
     color: #2f3a44;
 }
 
-.navbar-default .navbar-nav > li > a:hover {
+.navbar-default .navbar-nav>li>a:hover {
     color: grey;
 }
 
-.nav > li > a:hover,
-.nav > li > a:hover {
+.nav>li>a:hover,
+.nav>li>a:hover {
     background-color: transparent;
     color: #8b8b8b;
 }
 
- .navbar-default .navbar-brand:hover {
+.navbar-default .navbar-brand:hover {
     color: #e5ebef;
- }
+}
 
 
 /*------------------------------------------------------------------------------
@@ -287,9 +327,9 @@ nav ul a:hover {
 ------------------------------------------------------------------------------*/
 
 @media(max-width:1810px) {
-   .top-navbar .navbar-right {
+    .top-navbar .navbar-right {
         width: 15%;
-   }
+    }
 }
 
 @media(max-width:1440px) {
@@ -303,16 +343,16 @@ nav ul a:hover {
 @media(max-width:952px) {
     .top-navbar {
         margin: 0px;
-        padding:10px;
-        height:40px;
+        padding: 10px;
+        height: 40px;
     }
 
-    .top-navbar .navbar-header{
+    .top-navbar .navbar-header {
         width: 50%
     }
 
     .top-navbar .navbar-brand {
-        font-size:  3rem;
+        font-size: 3rem;
     }
 
     .navbar-brand i.large.material-icons {
@@ -320,7 +360,7 @@ nav ul a:hover {
     }
 
 
-   .top-navbar .navbar-right {
+    .top-navbar .navbar-right {
         position: absolute;
         top: 10px;
         left: 85%;
@@ -343,13 +383,13 @@ nav ul a:hover {
     .top-navbar .navbar-brand {
         height: 40px;
         width: 220px;
-        font-size:  2rem;
+        font-size: 2rem;
         padding: 5px;
 
     }
 
     .navbar-brand i.large.material-icons {
-        font-size:  2rem;
+        font-size: 2rem;
 
     }
 
@@ -368,7 +408,7 @@ nav ul a:hover {
 
     }
 
-    .dropdown-content li > a {
+    .dropdown-content li>a {
         font-size: 12px;
     }
 
@@ -427,7 +467,9 @@ ul.breadcrumb {
 }
 
 
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
     color: black;
 }
 
@@ -440,20 +482,31 @@ ul.breadcrumb {
     EDIT & ADD FORMS +
 ------------------------------------------------------------------------------*/
 
-
 input[type="password"]:not(.browser-default),
-input.invalid[type="password"]:not(.browser-default), input.invalid[type="password"]:not(.browser-default):focus,
-input[type="password"]:not(.browser-default):focus:not([readonly]), input.valid[type="password"]:not(.browser-default),
-input[type="password"]:not(.browser-default), input[type="email"]:not(.browser-default),
-input.invalid[type="email"]:not(.browser-default), input.invalid[type="email"]:not(.browser-default):focus,
-input[type="email"]:not(.browser-default):focus:not([readonly]), input.valid[type="email"]:not(.browser-default),
-input[type="number"]:not(.browser-default):focus:not([readonly]), input.valid[type="number"]:not(.browser-default),
-input.invalid[type="text"]:not(.browser-default), input.invalid[type="text"]:not(.browser-default):focus,
-input.invalid[type="text"]:not(.browser-default), input[type="text"]:not(.browser-default):focus:not([readonly]),
-input[type="text"]:not(.browser-default), input.valid[type="text"]:not(.browser-default), input[type="search"]:not(.browser-default),
-input[type="search"]:not(.browser-default):focus:not([readonly]), input.invalid[type="number"]:not(.browser-default),
-input.invalid[type="number"]:not(.browser-default), input.invalid[type="number"]:not(.browser-default):focus,
-input[type="number"]:not(.browser-default){
+input.invalid[type="password"]:not(.browser-default),
+input.invalid[type="password"]:not(.browser-default):focus,
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input.valid[type="password"]:not(.browser-default),
+input[type="password"]:not(.browser-default),
+input[type="email"]:not(.browser-default),
+input.invalid[type="email"]:not(.browser-default),
+input.invalid[type="email"]:not(.browser-default):focus,
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input.valid[type="email"]:not(.browser-default),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input.valid[type="number"]:not(.browser-default),
+input.invalid[type="text"]:not(.browser-default),
+input.invalid[type="text"]:not(.browser-default):focus,
+input.invalid[type="text"]:not(.browser-default),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="text"]:not(.browser-default),
+input.valid[type="text"]:not(.browser-default),
+input[type="search"]:not(.browser-default),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+input.invalid[type="number"]:not(.browser-default),
+input.invalid[type="number"]:not(.browser-default),
+input.invalid[type="number"]:not(.browser-default):focus,
+input[type="number"]:not(.browser-default) {
     border-bottom: none;
     box-shadow: none;
     color: black;
@@ -471,13 +524,15 @@ input.invalid[type="number"]:not(.browser-default),
 input.invalid[type="number"]:not(.browser-default):focus,
 input[type="text"]:not(.browser-default),
 input.invalid[type="text"]:not(.browser-default),
- input.invalid[type="number"]:not(.browser-default){
+input.invalid[type="number"]:not(.browser-default) {
     background-color: white;
     border-radius: 5px;
 }
 
 
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
 
     background-color: #fff;
     border: 1px solid #acacae;

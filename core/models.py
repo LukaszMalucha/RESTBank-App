@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MinValueValidator
 from django.conf import settings
-
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import ValidationError
 
 # Manager Class
 class UserManager(BaseUserManager):
@@ -49,8 +50,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         except:
             instrument = Instrument()
             instrument.save()
-        asset = Asset(owner=self, instrument=instrument, quantity=100000)
-        asset.save()
+        asset = Asset.objects.filter(owner=self).filter(instrument__name="USD").first()
+        if not asset:
+            asset = Asset(owner=self, instrument=instrument, quantity=100000)
+            asset.save()
 
     # Add  AUTH_USER_MODEL to settings !!!
 
@@ -67,7 +70,7 @@ class Instrument(models.Model):
 
 
 class Asset(models.Model):
-    """Customer owned asset"""
+    """Customer owned assets"""
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
@@ -83,7 +86,7 @@ class Asset(models.Model):
 
 
 class BuyTransaction(models.Model):
-    """Buy asset"""
+    """Buy asset transaction"""
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
@@ -100,7 +103,7 @@ class BuyTransaction(models.Model):
         cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="USD").first()
         cash_balance.quantity -= value
         if cash_balance.quantity < 0:
-            pass
+            raise ValidationError('Insufficient funds to proceed with transaction.')
         else:
             super(BuyTransaction, self).save(*args, **kwargs)
             cash_balance.save()
@@ -117,7 +120,7 @@ class BuyTransaction(models.Model):
 
 
 class SellTransaction(models.Model):
-    """Buy asset"""
+    """Sell asset transaction"""
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
@@ -134,16 +137,17 @@ class SellTransaction(models.Model):
         value = self.value()
         cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="USD").first()
         cash_balance.quantity += value
-        cash_balance.save()
-        asset = Asset.objects.get(owner=self.owner, instrument=self.instrument)
+        asset = get_object_or_404(Asset, owner=self.owner, instrument=self.instrument)
         asset_balance = asset.quantity - self.quantity
         if asset_balance < 0:
-            pass  ## warning!!
+            raise ValidationError('Insufficient asset quantity to proceed with transaction.')
         elif asset_balance == 0:
             asset.delete()
+            cash_balance.save()
         else:
             asset.quantity -= self.quantity
             asset.save()
+            cash_balance.save()
 
     def __str__(self):
         return f"{self.owner}: {self.quantity} of {self.instrument}"

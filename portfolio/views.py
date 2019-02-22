@@ -16,7 +16,7 @@ class BaseRestrictedVIewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 
 
 class AccountViewSet(viewsets.ViewSet):
-    """Asset management in db"""
+    """Customer's assets view"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.AssetSerializer
@@ -29,7 +29,7 @@ class AccountViewSet(viewsets.ViewSet):
 
 
 class CashBalanceViewSet(BaseRestrictedVIewSet):
-    """Cash Balance view"""
+    """Cash Balance view with top-up functionality"""
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.all()
 
@@ -49,8 +49,9 @@ class CashBalanceViewSet(BaseRestrictedVIewSet):
         return Response(cash_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class InstrumentViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
-    """Manage instruments in the database"""
+class InstrumentViewSet(viewsets.ModelViewSet):
+    """Create instruments in the database"""
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsAdminOrReadOnly)
     serializer_class = serializers.InstrumentSerializer
     queryset = Instrument.objects.all()
@@ -65,9 +66,13 @@ class InstrumentViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
             serializer.save()
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    ## UPDATE DELETE
+
+
+
 
 class BuyAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
-    """Buy Asset view"""
+    """Buy asset transaction view"""
     serializer_class = serializers.BuyTransactionSerializer
     queryset = BuyTransaction.objects.all()
 
@@ -83,7 +88,7 @@ class BuyAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SellAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
-    """Buy Asset view"""
+    """Sell asset transaction view"""
     serializer_class = serializers.SellTransactionSerializer
     queryset = SellTransaction.objects.all()
 
@@ -96,3 +101,6 @@ class SellAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
         if serializer.is_valid():
             serializer.save(owner=self.request.user)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+## Tranzakcja nie dochodzi do skutku a assety się dopisują
+## Przefiltrować assety tylko do tych ktore posiada klient

@@ -19,7 +19,7 @@ class UserAdmin(BaseUserAdmin):
         (_('Important dates'), {'fields': ('last_login',)}))
     # Page for adding new users
     add_fieldsets = (
-        (None, {'classes': ('wide',), 'fields': ('email', 'password1', 'password2')}),)  ## Coma - TUPLE!
+        (None, {'classes': ('wide',), 'fields': ('email', 'password1', 'password2')}),)  # Coma - TUPLE!
 
 
 class InstrumentModelAdmin(admin.ModelAdmin):
@@ -44,7 +44,7 @@ class AssetModelAdmin(admin.ModelAdmin):
 class BuyTransactionModelAdmin(admin.ModelAdmin):
     ordering = ['owner', 'created_at']
     list_display = ["owner", "instrument", "quantity", "value", "created_at"]
-    list_filter = ('instrument', ('created_at', DateRangeFilter))
+    list_filter = ('instrument', ('created_at', DateRangeFilter))  # datetime search add-on
     search_fields = ["owner", "instrument"]
 
     class Meta:

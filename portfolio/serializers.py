@@ -19,21 +19,12 @@ class AssetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Asset
-        fields = ('id', 'symbol', 'quantity','value')
+        fields = ('id', 'symbol', 'quantity', 'value')
         read_only_fields = '__all__',
 
 
 class BuyTransactionSerializer(serializers.ModelSerializer):
-    """Serializer for assets"""
-    symbol = serializers.ReadOnlyField(source="instrument.symbol")
-
-    class Meta:
-        model = BuyTransaction
-        fields = ('id', 'symbol', 'instrument', 'quantity', 'created_at', 'value')
-
-
-class BuyTransactionSerializer(serializers.ModelSerializer):
-    """Serializer for assets"""
+    """Serializer for buy transactions"""
     symbol = serializers.ReadOnlyField(source="instrument.symbol")
 
     class Meta:
@@ -42,7 +33,7 @@ class BuyTransactionSerializer(serializers.ModelSerializer):
 
 
 class SellTransactionSerializer(serializers.ModelSerializer):
-    """Serializer for assets"""
+    """Serializer for sell transactions"""
     symbol = serializers.ReadOnlyField(source="instrument.symbol")
 
     class Meta:
