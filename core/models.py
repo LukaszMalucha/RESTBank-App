@@ -43,17 +43,25 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
-        asset = Asset(owner=self, instrument=Instrument.objects.filter(name="CASH").first(), quantity=100000)
+        try:
+            instrument = Instrument.objects.get(name="USD")
+        except:
+            instrument = Instrument()
+            instrument.save()
+        asset = Asset(owner=self, instrument=Instrument.objects.filter(name="USD").first(), quantity=100000)
         asset.save()
+
+
 
     # Add  AUTH_USER_MODEL to settings !!!
 
 
 class Instrument(models.Model):
     """Financial instrument for customer portfolio"""
-    name = models.CharField(max_length=255)
-    symbol = models.CharField(max_length=10)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    name = models.CharField(max_length=255, unique=True, default="USD")
+    symbol = models.CharField(max_length=10, unique=True, default="USD")
+    category = models.CharField(max_length=255, default="Currency")
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=1.0)
 
     def __str__(self):
         return self.symbol
@@ -91,7 +99,7 @@ class BuyTransaction(models.Model):
     def save(self, *args, **kwargs):
         super(BuyTransaction, self).save(*args, **kwargs)
         value = self.value()
-        cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="CASH").first()
+        cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="USD").first()
         cash_balance.quantity -= value
         cash_balance.save()
         existing_asset = Asset.objects.filter(owner=self.owner).filter(instrument=self.instrument).first()
@@ -122,13 +130,13 @@ class SellTransaction(models.Model):
     def save(self, *args, **kwargs):
         super(SellTransaction, self).save(*args, **kwargs)
         value = self.value()
-        cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="CASH").first()
+        cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="USD").first()
         cash_balance.quantity += value
         cash_balance.save()
         asset = Asset.objects.get(owner=self.owner, instrument=self.instrument)
         asset_balance = asset.quantity - self.quantity
         if asset_balance < 0:
-            pass
+            pass ## warning!!
         elif asset_balance == 0:
             asset.delete()
         else:
@@ -136,4 +144,4 @@ class SellTransaction(models.Model):
             asset.save()
 
     def __str__(self):
-        return f"{self.created_at} - SELL - {self.quantity} of {self.instrument}"
+        return f"{self.owner}: {self.quantity} of {self.instrument}"

@@ -53,7 +53,7 @@
                 </div>
                 <br>
                 <div class="row">
-                <div class="col-md-3 text-center"> </div>
+                <div class="col-md-2 text-center"> </div>
                 <div class="col-md-2 text-center">
                     <button onclick="window.location='{% url 'user:create' %}'" class="btn route" ><b>Register</b></button>
                 </div>
@@ -61,9 +61,12 @@
                     <button onclick="window.location='{% url 'user:authenticate' %}'" class="btn route" ><b>Authenticate</b></button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button onclick="window.location='{% url 'user:my_account' %}'" class="btn route" ><b>Account</b></button>
+                    <button onclick="window.location='{% url 'user:my_account' %}'" class="btn route" ><b>User Details</b></button>
                 </div>
-                <div class="col-md-3 text-center"></div>
+                <div class="col-md-2 text-center">
+                    <button onclick="window.location='{% url 'portfolio:account-list' %}'" class="btn route" ><b>My Portfolio</b></button>
+                </div>
+                <div class="col-md-2 text-center"></div>
             </div>
                 <br>
     </div>

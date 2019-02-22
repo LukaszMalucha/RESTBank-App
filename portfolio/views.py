@@ -1,4 +1,3 @@
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status, views
 from rest_framework.authentication import TokenAuthentication
@@ -17,8 +16,9 @@ class InstrumentViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.C
     """Manage instruments in the database"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated, IsAdminOrReadOnly)
-    queryset = Instrument.objects.all()
     serializer_class = serializers.InstrumentSerializer
+    queryset = Instrument.objects.all()
+
 
     def get_queryset(self):
         queryset = self.queryset
@@ -47,15 +47,15 @@ class CashBalanceViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.AssetSerializer
-    queryset = Asset.objects.filter(instrument=Instrument.objects.filter(name="CASH").first())
+    queryset = Asset.objects.all()
 
     def get_queryset(self):
         queryset = self.queryset
-        return queryset.filter(owner=self.request.user)
+        return queryset.filter(owner=self.request.user).filter(instrument=Instrument.objects.filter(name="USD").first())
 
     def post(self, request):
         cash_serializer = serializers.AssetSerializer(data=request.data)
-        cash_balance = Asset.objects.get(instrument__name="CASH", owner=request.user)
+        cash_balance = Asset.objects.get(instrument__name="USD", owner=request.user)
         if cash_serializer.is_valid():
             top_up = int(request.data['quantity'])
             cash_balance.quantity += top_up
