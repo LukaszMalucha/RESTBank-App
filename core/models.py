@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.validators import MinValueValidator
 from django.conf import settings
-
-
 
 
 # Manager Class
@@ -50,10 +49,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         except:
             instrument = Instrument()
             instrument.save()
-        asset = Asset(owner=self, instrument=Instrument.objects.filter(name="USD").first(), quantity=100000)
+        asset = Asset(owner=self, instrument=instrument, quantity=100000)
         asset.save()
-
-
 
     # Add  AUTH_USER_MODEL to settings !!!
 
@@ -63,7 +60,7 @@ class Instrument(models.Model):
     name = models.CharField(max_length=255, unique=True, default="USD")
     symbol = models.CharField(max_length=10, unique=True, default="USD")
     category = models.CharField(max_length=255, default="Currency")
-    price = models.DecimalField(max_digits=12, decimal_places=2, default=1.0)
+    price = models.DecimalField(max_digits=12, decimal_places=2, default=1.0, validators=[MinValueValidator(0.01)])
 
     def __str__(self):
         return self.symbol
@@ -73,7 +70,7 @@ class Asset(models.Model):
     """Customer owned asset"""
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
 
     def value(self):
         quantity = self.quantity
@@ -89,7 +86,7 @@ class BuyTransaction(models.Model):
     """Buy asset"""
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def value(self):
@@ -99,18 +96,21 @@ class BuyTransaction(models.Model):
         return total
 
     def save(self, *args, **kwargs):
-        super(BuyTransaction, self).save(*args, **kwargs)
         value = self.value()
         cash_balance = Asset.objects.filter(owner=self.owner).filter(instrument__name="USD").first()
         cash_balance.quantity -= value
-        cash_balance.save()
-        existing_asset = Asset.objects.filter(owner=self.owner).filter(instrument=self.instrument).first()
-        if not existing_asset:
-            asset = Asset(owner=self.owner, instrument=self.instrument, quantity=self.quantity)
-            asset.save()
+        if cash_balance.quantity < 0:
+            pass
         else:
-            existing_asset.quantity += self.quantity
-            existing_asset.save()
+            super(BuyTransaction, self).save(*args, **kwargs)
+            cash_balance.save()
+            existing_asset = Asset.objects.filter(owner=self.owner).filter(instrument=self.instrument).first()
+            if not existing_asset:
+                asset = Asset(owner=self.owner, instrument=self.instrument, quantity=self.quantity)
+                asset.save()
+            else:
+                existing_asset.quantity += self.quantity
+                existing_asset.save()
 
     def __str__(self):
         return f"{self.owner}: {self.quantity} of {self.instrument}"
@@ -120,7 +120,7 @@ class SellTransaction(models.Model):
     """Buy asset"""
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.ForeignKey('Instrument', on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def value(self):
@@ -138,7 +138,7 @@ class SellTransaction(models.Model):
         asset = Asset.objects.get(owner=self.owner, instrument=self.instrument)
         asset_balance = asset.quantity - self.quantity
         if asset_balance < 0:
-            pass ## warning!!
+            pass  ## warning!!
         elif asset_balance == 0:
             asset.delete()
         else:

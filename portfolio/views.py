@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -44,7 +44,9 @@ class CashBalanceViewSet(BaseRestrictedVIewSet):
             top_up = int(request.data['quantity'])
             cash_balance.quantity += top_up
             cash_balance.save()
-            return Response('TOP up success ')
+            return Response(f"You've successfully transferred {top_up} $ to your Account."
+                            f" Your current cash balance is {cash_balance.quantity}$.")
+        return Response(cash_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InstrumentViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
@@ -59,7 +61,9 @@ class InstrumentViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
 
     def perform_create(self, serializer):
         """Create a new financial instrument"""
-        serializer.save()
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BuyAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
@@ -74,8 +78,9 @@ class BuyAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
 
     def perform_create(self, serializer):
         """Create a new financial instrument"""
-        serializer.save(owner=self.request.user)
-
+        if serializer.is_valid():
+            serializer.save(owner=self.request.user)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SellAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
     """Buy Asset view"""
@@ -88,4 +93,6 @@ class SellAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
 
     def perform_create(self, serializer):
         """Sell  financial instrument"""
-        serializer.save(owner=self.request.user)
+        if serializer.is_valid():
+            serializer.save(owner=self.request.user)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
