@@ -8,7 +8,7 @@ class InstrumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Instrument
-        fields = ('id', 'name', 'symbol', 'price')
+        fields = ('id', 'name', 'symbol', 'category', 'price')
         # make id read-only
         read_only_fields = ('id',)  # Tuple!
 

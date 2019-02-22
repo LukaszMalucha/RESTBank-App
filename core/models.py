@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.conf import settings
 
 
+
+
 # Manager Class
 class UserManager(BaseUserManager):
 
@@ -61,7 +63,7 @@ class Instrument(models.Model):
     name = models.CharField(max_length=255, unique=True, default="USD")
     symbol = models.CharField(max_length=10, unique=True, default="USD")
     category = models.CharField(max_length=255, default="Currency")
-    price = models.DecimalField(max_digits=5, decimal_places=2, default=1.0)
+    price = models.DecimalField(max_digits=12, decimal_places=2, default=1.0)
 
     def __str__(self):
         return self.symbol
