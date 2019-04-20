@@ -102,3 +102,4 @@ class SellAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
         if serializer.is_valid():
             serializer.save(owner=self.request.user)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

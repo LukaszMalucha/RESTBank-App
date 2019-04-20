@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-# import env
+import env
 import dj_database_url
 from django.conf.global_settings import DATETIME_INPUT_FORMATS
 
@@ -23,13 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = 'secret_key'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'restbank-api.herokuapp.com', os.environ.get('C9_HOSTNAME')]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'daterange_filter',
-    'storages',
     'home',
     'core',
     'user',
@@ -141,25 +139,6 @@ DATETIME_INPUT_FORMATS += ('%Y-%m-%d %H:%M %p',)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
-
-AWS_S3_OBJECT_PARAMETERS = {
-    'Expires': 'Fri, 31 Dec 2055 20:00:00 GMT',
-    'CacheControl': 'max-age=94608000',
-    
-}
-
-AWS_STORAGE_BUCKET_NAME = 'restbank'
-AWS_S3_REGION_NAME = 'eu-west-1'
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")                         ## hidden
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")                 ## hidden
-
-
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME  
-
-
-STATICFILES_LOCATION = 'static'                                                 ## comment out for testing
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'                           ## comment out for testing
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
