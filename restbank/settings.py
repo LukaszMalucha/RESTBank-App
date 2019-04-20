@@ -29,7 +29,7 @@ SECRET_KEY = 'secret_key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'restbank-api.herokuapp.com', os.environ.get('C9_HOSTNAME')]
+ALLOWED_HOSTS = ['*', 'restbank-api.herokuapp.com', 'restbank-api1.herokuapp.com', os.environ.get('C9_HOSTNAME')]
 
 
 # Application definition
