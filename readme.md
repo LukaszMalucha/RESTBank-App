@@ -1,6 +1,6 @@
 # RestBank API
 
-#### [Visit App on Heroku](https://restbank-api1.herokuapp.com/)
+#### [Visit App on Heroku](https://restbank-api.herokuapp.com/)
 
 
 
