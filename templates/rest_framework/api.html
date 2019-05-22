@@ -23,6 +23,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <!-- Material Icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-weight: 400 500;
+        src: url('{% static 'fonts/TTF/SourceSansPro-Regular.ttf' %}');
+      }
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-weight: bold 600;
+        src: url('{% static 'fonts/TTF/SourceSansPro-Semibold.ttf' %}');
+      }
+      @font-face {
+        font-family: 'Raleway';
+        src: url('{% static 'fonts/TTF/Raleway-Regular.ttf' %}');
+      }
+    </style>
 
 {% endblock %}
 
@@ -30,21 +46,15 @@
 {% block title %}RESTBank API{% endblock %}
 
 {% block navbar %}
+         <!-- TOP NAVBAR -->
     <nav class="navbar navbar-default top-navbar" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand waves-effect waves-dark" href="{% url 'home' %}"> <img src="{% static 'img/restbank.png' %}" class="responsive logo-img"></a>
         </div>
-         <ul class="nav navbar-nav pull-right">
-            <li><a class="dropdown-button waves-effect waves-dark" target="_blank" href=""><i class="fab fa-github" style="color: #24292e;"></i> <b>GitHub</b></a></li>
-            <li><a class="dropdown-button waves-effect waves-dark" target="_blank" href=""><i class="fab fa-linkedin" style="color: #0077b5;"></i> <b>Linkedin</b></a></li>
+         <ul class="nav navbar-top-links navbar-right">
+            <li><a class="dropdown-button waves-effect waves-dark" target="_blank" href="https://github.com/LukaszMalucha"><i class="fab fa-github" style="color: #24292e;"></i> <b>GitHub</b></a></li>
+            <li><a class="dropdown-button waves-effect waves-dark" target="_blank" href="https://www.linkedin.com/in/lukaszmalucha"><i class="fab fa-linkedin" style="color: #0077b5;"></i> <b>Linkedin</b></a></li>
             <li><a class="dropdown-button waves-effect waves-dark" target="_blank" href="https://projectgamification.herokuapp.com/"><i class="fas fa-code-branch" style="color: #652960;"></i><b>Portfolio</b></a></li>
-          {% block userlinks %}
-            {% if user.is_authenticated %}
-              <li><a><b><i class="fas fa-user" style="color: #24292e;"></i>{% optional_logout request user %}</b></a></li>
-            {% else %}
-              <li><a><b>{% optional_login request %}</b></a></li>
-            {% endif %}
-          {% endblock %}
         </ul>
     </nav>
 {% endblock %}
