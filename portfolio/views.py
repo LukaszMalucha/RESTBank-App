@@ -9,7 +9,7 @@ from core.models import Instrument, Asset, BuyTransaction, SellTransaction
 from portfolio import serializers
 
 
-class BaseRestrictedVIewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+class BaseRestrictedViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     """Basic authentication and permission"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -28,7 +28,7 @@ class AccountViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-class CashBalanceViewSet(BaseRestrictedVIewSet):
+class CashBalanceViewSet(BaseRestrictedViewSet):
     """Cash Balance view with top-up functionality"""
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.all()
@@ -72,7 +72,7 @@ class InstrumentViewSet(viewsets.ModelViewSet):
 
 
 
-class BuyAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
+class BuyAssetViewSet(BaseRestrictedViewSet, mixins.CreateModelMixin):
     """Buy asset transaction view"""
     serializer_class = serializers.BuyTransactionSerializer
     queryset = BuyTransaction.objects.all()
@@ -88,7 +88,7 @@ class BuyAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
             serializer.save(owner=self.request.user)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class SellAssetViewSet(BaseRestrictedVIewSet, mixins.CreateModelMixin):
+class SellAssetViewSet(BaseRestrictedViewSet, mixins.CreateModelMixin):
     """Sell asset transaction view"""
     serializer_class = serializers.SellTransactionSerializer
     queryset = SellTransaction.objects.all()

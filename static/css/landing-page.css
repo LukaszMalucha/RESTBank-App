@@ -462,6 +462,7 @@ input.invalid[type="number"]:not(.browser-default) {
 @media(max-width:1810px) {
    .top-navbar .navbar-right {
         width: auto;
+
    }
 }
 
@@ -474,7 +475,7 @@ input.invalid[type="number"]:not(.browser-default) {
 }
 
 
-@media(max-width:952px) {
+@media(max-width:1025px) {
     .top-navbar {
         margin: 0px;
         padding:10px;
@@ -495,8 +496,7 @@ input.invalid[type="number"]:not(.browser-default) {
 
 
    .top-navbar .navbar-right {
-
-
+        width: 25%;
     }
 
     .dropdown-content {
@@ -504,9 +504,12 @@ input.invalid[type="number"]:not(.browser-default) {
     }
 
 
-
     h1 {
        font-size: 2.2rem;
+    }
+
+    .route {
+        font-size: 0.6rem;
     }
 
 

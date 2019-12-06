@@ -11,7 +11,7 @@ User can buy and sell financial instruments, top up his cash balance. It also al
 
 
 
-### App Structure & Endpoints
+## App Structure & Endpoints
 
 ### Homepage
 #### `/`
