@@ -4,6 +4,10 @@ python:
 services:
   - docker
 
+env:
+  global:
+    - SECRET_KEY="test"
+
 before_script: pip install docker-compose
 
 script:
