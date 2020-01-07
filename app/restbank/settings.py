@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if os.getenv('BUILD_ON_TRAVIS', None):
-    SECRET_KEY = "TestTravis"
-else:
+if "SECRET_KEY" in os.environ:
     SECRET_KEY = os.environ.get('SECRET_KEY')
+else:
+    SECRET_KEY = "TestDjango"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
