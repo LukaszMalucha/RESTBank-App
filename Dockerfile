@@ -1,5 +1,4 @@
 FROM python:3.8.1-slim-buster
-
 MAINTAINER Lukasz Admin
 
 ENV PYTHONUNBUFFERED 1

@@ -1,8 +1,10 @@
 language: python
 python:
-  - "3.6"
+  - "3.7"
+services:
+  - docker
 
+before_script: pip install docker-compose
 
-install: "pip install -r requirements.txt"
 script:
-  - python manage.py test
+  - docker-compose run --rm app sh -c "python manage.py test"
