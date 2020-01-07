@@ -20,6 +20,7 @@ class BaseRestrictedViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 
 class InstrumentViewSet(viewsets.ModelViewSet):
     """Create instruments in the database"""
+    authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated, IsAdminOrReadOnly)
     serializer_class = serializers.InstrumentSerializer
     queryset = Instrument.objects.all()

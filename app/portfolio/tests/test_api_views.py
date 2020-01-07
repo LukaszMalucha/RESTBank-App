@@ -231,12 +231,12 @@ class SellAssetViewSetTests(TestCase):
         self.client.force_authenticate(self.user)
 
     def test_retrieve_sell_transactions(self):
-        """Test accessing buy transactions"""
+        """Test accessing sell transactions"""
         response = self.client.get(SELL_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_selling_asset(self):
-        """Test buying asset"""
+        """Test selling asset"""
         instrument = sample_instrument()
         asset = sample_asset(self.user, instrument)
         sell_transaction = {"instrument": instrument.id,
@@ -246,6 +246,16 @@ class SellAssetViewSetTests(TestCase):
         response = self.client.post(SELL_URL, sell_transaction)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+    def test_selling_asset_not_owned(self):
+        """Test selling asset not owned by user"""
+        instrument = sample_instrument()
+        sell_transaction = {"instrument": instrument.id,
+                            "quantity": 1,
+                            "owner": self.user,
+                            }
+        response = self.client.post(SELL_URL, sell_transaction)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['non_field_errors'][0], "You don't own this asset.")
 
     def test_selling_insufficient_cash(self):
         """Test selling asset"""

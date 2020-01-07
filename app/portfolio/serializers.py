@@ -99,8 +99,11 @@ class SellTransactionSerializer(serializers.ModelSerializer):
         # Sufficient asset quantity
         user = self.context['request'].user
         asset = Asset.objects.filter(owner=user).filter(instrument__name=attrs['instrument']).first()
-        quantity = attrs['quantity']
-        asset_balance = asset.quantity - quantity
-        if asset_balance < 0:
-            raise ValidationError('You have insufficient asset quantity to proceed with transaction.')
-        return attrs
+        if asset:
+            quantity = attrs['quantity']
+            asset_balance = asset.quantity - quantity
+            if asset_balance < 0:
+                raise ValidationError('You have insufficient asset quantity to proceed with transaction.')
+            return attrs
+        else:
+            raise ValidationError("You don't own this asset.")
