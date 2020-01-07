@@ -1,6 +1,0 @@
-Django
-django-daterange-filter
-django-forms-bootstrap
-DjangoRestFramework
-psycopg2
-dj_database_url
