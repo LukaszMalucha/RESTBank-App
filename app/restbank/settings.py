@@ -29,9 +29,9 @@ else:
     SECRET_KEY = "TestDjango"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'restbank-api.herokuapp.com', 'restbank-api1.herokuapp.com', os.environ.get('C9_HOSTNAME')]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
