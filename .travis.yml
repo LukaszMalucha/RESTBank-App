@@ -6,7 +6,7 @@ services:
 
 env:
   global:
-    - SECRET_KEY="test"
+    - BUILD_ON_TRAVIS=true
 
 before_script: pip install docker-compose
 
