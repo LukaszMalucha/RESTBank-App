@@ -41,7 +41,7 @@ class InstrumentViewSet(viewsets.ModelViewSet):
 class AssetManagerViewSet(viewsets.ViewSet):
     """Customer's asset view"""
     authentication_classes = (TokenAuthentication, SessionAuthentication)
-    permisssion_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.all()
 
@@ -54,7 +54,7 @@ class AssetManagerViewSet(viewsets.ViewSet):
 class CashBalanceViewSet(BaseRestrictedViewSet):
     """Cash balance view with top-up functionality"""
     authentication_classes = (TokenAuthentication, SessionAuthentication)
-    permisssion_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = serializers.AssetSerializer
     queryset = Asset.objects.all()
 
