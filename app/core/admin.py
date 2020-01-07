@@ -6,6 +6,10 @@ from daterange_filter.filter import DateRangeFilter
 from core import models
 
 
+class AssetInline(admin.TabularInline):
+    model = models.Asset
+
+
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['email', 'name']
@@ -21,9 +25,11 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {'classes': ('wide',), 'fields': ('email', 'password1', 'password2')}),)  # Coma - TUPLE!
 
+    inlines = [AssetInline]
+
 
 class InstrumentModelAdmin(admin.ModelAdmin):
-    list_display = ["symbol", "name", "category", "price"]
+    list_display = ["name", "symbol", "category", "price"]
     list_filter = ("category",)
     search_fields = ["symbol", "name"]
 
@@ -33,12 +39,20 @@ class InstrumentModelAdmin(admin.ModelAdmin):
 
 class AssetModelAdmin(admin.ModelAdmin):
     ordering = ['owner', 'instrument']
-    list_display = ["owner", "instrument", "quantity", "value"]
+    list_display = ["owner", "instrument", "symbol", "quantity", "value"]
     list_filter = ('instrument',)
     search_fields = ["owner", "instrument"]
 
     class Meta:
         model = models.Asset
+
+    def symbol(self, obj):
+        return obj.instrument.symbol
+
+    def value(self, obj):
+        price = obj.instrument.price
+        quantity = obj.quantity
+        return price * quantity
 
 
 class BuyTransactionModelAdmin(admin.ModelAdmin):
@@ -62,6 +76,7 @@ class SellTransactionModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.MyProfile)
 admin.site.register(models.Instrument, InstrumentModelAdmin)
 admin.site.register(models.Asset, AssetModelAdmin)
 admin.site.register(models.BuyTransaction, BuyTransactionModelAdmin)

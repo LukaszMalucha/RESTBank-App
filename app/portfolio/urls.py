@@ -3,18 +3,15 @@ from rest_framework.routers import DefaultRouter
 
 from portfolio import views
 
-router = DefaultRouter()
-router.register('instruments', views.InstrumentViewSet)
-router.register('cash_balance', views.CashBalanceViewSet)
-router.register('account', views.AccountViewSet, basename='account')
-router.register('buy', views.BuyAssetViewSet)
-router.register('sell', views.SellAssetViewSet, basename='sell')
+app_name = "portfolio"
 
-app_name = 'portfolio'
+router = DefaultRouter()
+router.register("instruments", views.InstrumentViewSet, basename="instruments")
+router.register("cash-balance", views.CashBalanceViewSet, basename="cash-balance")
+router.register("asset-manager", views.AssetManagerViewSet, basename="asset-manager")
+router.register("buy", views.BuyAssetViewSet, basename="buy")
+router.register("sell", views.SellAssetViewSet, basename="sell")
 
 urlpatterns = [
-    path('', include(router.urls)),
-
+    path("", include(router.urls)),
 ]
-
-
