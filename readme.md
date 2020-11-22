@@ -28,7 +28,7 @@ User can buy and sell financial instruments, top up his cash balance. It also al
 <br>
  
 ### Manage User
-#### `/user/my_account/`
+#### `/user/my-account/`
 
 ![3](https://user-images.githubusercontent.com/26208598/53289478-48562680-378e-11e9-98a1-ea6d188698cd.JPG) 
 
@@ -40,7 +40,6 @@ User can buy and sell financial instruments, top up his cash balance. It also al
 
 ![4](https://user-images.githubusercontent.com/26208598/53289480-4b511700-378e-11e9-9f2b-b2418b436ec7.JPG)
  
-
 
 <br>
 
@@ -60,7 +59,7 @@ User can buy and sell financial instruments, top up his cash balance. It also al
 <br>
 
 ### Sell Assets
-#### `/portfolio/buy/`
+#### `/portfolio/sell/`
 
 <br>
  
@@ -69,30 +68,27 @@ User can buy and sell financial instruments, top up his cash balance. It also al
 
 <br>
 
-### Travis CI:
+### App Testing:
 
-[![Build Status](https://travis-ci.com/LukaszMalucha/RESTBank-App.svg?branch=master)](https://travis-ci.com/LukaszMalucha/RESTBank-App)
-
-### Test Files:
-
-#### `/core/tests/`
-
+##### Travis CI: [![Build Status](https://travis-ci.com/LukaszMalucha/RESTBank-App.svg?branch=master)](https://travis-ci.com/LukaszMalucha/RESTBank-App)
+##### `/core/tests/` [ coverage - 96% ]
+##### `/home/tests/` [coverage - 100% ]
+##### `/portfolio/tests/` [coverage - 98% ]
+##### `/user/tests/` [coverage - 100% ]
 
 ## TOOLS, MODULES & TECHNIQUES
 
-##### Web Development:
-Django RESTful | Docker | Heroku | Bootstrap | Materialize
+##### Backend Development:
+Django RESTful
 
+##### Deployment
+Docker | Heroku | Travis CI
 
 ##### Database Development:
 Postgres | SQLite
 
 ##### Testing
-Django.test
-
-
-<br>
-<br>
+django.test | coverage
 
 ##### Thank you,
 
